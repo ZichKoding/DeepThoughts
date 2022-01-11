@@ -31,6 +31,4 @@ const resolvers = {
     }
 };
 
-// Stopping at 21.1.6 at "Use Query Variables"
-
 module.exports = resolvers;
