@@ -15,7 +15,7 @@ const resolvers = {
             return User.findOne({ username })
                 .select('-__v -password')
                 .populate('friends')
-                .populate('thoughts')
+                .populate('thoughts');
         },
 
         // Get all thoughts
@@ -30,5 +30,7 @@ const resolvers = {
         }
     }
 };
+
+// Stopping at 21.1.6 at "Use Query Variables"
 
 module.exports = resolvers;
