@@ -4,6 +4,19 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
+        me: async (parent, args, context) => {
+            if (context.user) {
+                const userData = await User.findOne({})
+                    .select('-__v -password')
+                    .populate('thoughts')
+                    .populate('friends');
+
+                return userData;
+            }
+
+            throw new AuthenticationError('Not logged in');
+        },
+
         // get all users 
         users: async () => {
             return User.find()
@@ -59,3 +72,9 @@ const resolvers = {
 };
 
 module.exports = resolvers;
+
+
+// HTTP HEADERS EXAMPLE:
+// {
+//   "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGVzdGVyMiIsImVtYWlsIjoidGVzdDJAdGVzdC5jb20iLCJfaWQiOiI1ZWQ2OTIzOGY5MjllYjQzOGM2MjI0YmUifSwiaWF0IjoxNTkxMTMyMDM3LCJleHAiOjE1OTExMzkyMzd9.5TLfWZCsC7bzsmOQ58xHf5G6PCD8TQEkrdioBSkN2T4"
+// }
