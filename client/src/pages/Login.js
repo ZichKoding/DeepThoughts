@@ -31,12 +31,6 @@ const Login = (props) => {
     } catch (e) {
       console.error(e);
     }
-
-    // clear form values
-    // setFormState({
-    //   email: '',
-    //   password: '',
-    // });
   };
 
   return (
